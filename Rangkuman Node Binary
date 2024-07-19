@@ -1,0 +1,109 @@
+Rangkuman Node Binary
+Memasang Node Binary
+Ada banyak cara dalam memasang node di komputer kita, salah satu cara yang populer adalah memasang langsung package resmi yang disediakan nodejs.org. Jika Anda melihat halaman resmi instalasi Node.js, terdapat banyak opsi yang bisa dipilih dalam memasang binary node. Namun, apakah cara-cara tersebut sudah yang terbaik?
+
+Ketahuilah bahwa terdapat masalah yang signifikan jika kita hanya mengandalkan package manager yang disediakan oleh sistem operasi. Pada sistem operasi Ubuntu, untuk memasang Node.js kita membutuhkan akses sudo karena binary node disimpan dalam folder yang memerlukan akses root. Hal ini akan berdampak ketika Anda menginstal package secara global melalui npm. 
+
+Masalah lain yang muncul adalah kesulitan dalam mengubah versi node. Untuk memperbarui versi node, Anda harus menghapus versi yang lama dan menginstal versi baru secara manual. Seluruh proses manual tersebut tentu saja berpotensi terjadi kesalahan yang tinggi.
+
+Cara terbaik saat ini untuk memasang node di Linux, macOS, atau Windows adalah dengan menggunakan node version manager (nvm). Node version manager sangat membantu dalam proses instalasi node. Selain itu, Anda dapat dengan mudah beralih antara versi node tanpa perlu mengulangi proses instalasi. Node version manager juga direkomendasikan oleh berbagai perusahaan seperti Google, Microsoft, dan npm dalam dokumentasi mereka.
+
+
+
+Menjelajahi Opsi Perintah pada Node Binary 
+Hampir semua fitur yang dapat dilakukan oleh platform Node.js direpresentasikan oleh binary node. Penting untuk diketahui bahwa opsi perintah yang tersedia di binary node sangatlah beragam. Untuk melihat seluruh opsi perintah pada binary node, Anda dapat menjalankan perintah berikut ini.
+
+node --help
+Hasilnya akan terlihat seperti gambar di bawah ini.
+
+dos:240b3c6426cea7364daf278d4c36a28220231005100050.jpeg
+
+Setiap kali menjalankan biner node, polanya akan seperti ini.
+
+node [options] [script.js] [arguments]
+
+Bagian [options] adalah tempat untuk menetapkan opsi perintah, misalnya opsi node --check atau node --trace-warnings. Opsi perintah juga dapat dikombinasikan dengan menggunakan spasi, misalnya, node --check --trace-warnings.
+
+Bagian [script.js] adalah berkas JavaScript yang akan dijalankan oleh Node.js. Sebagai contoh, jika Anda ingin menjalankan kode JavaScript pada berkas app.js dan menetapkan opsi perintah, Anda dapat menggunakan perintah node --trace-warnings app.js.
+
+Bagian terakhir, [arguments], adalah nilai tambahan yang akan dimasukkan ke dalam properti process.argv dalam bentuk array saat node dieksekusi. Misalnya, jika Anda ingin menetapkan nilai 5000 sebagai argumen ketika menjalankan berkas JavaScript, Anda dapat menggunakan perintah berikut ini.
+
+node --trace-warnings app.js 5000
+Sama seperti options, Anda juga dapat menetapkan lebih dari satu nilai argumen dengan memisahkannya menggunakan spasi. Kita akan belajar lebih detail tentang nilai argumen ini pada modul Proses dan Sistem Operasi. Untuk saat ini, mari kita lanjutkan eksplorasi opsi perintah yang ada di binary node!
+
+Seluruh bagian yang diapit oleh tanda kurung siku bersifat opsional. Jadi Anda dapat menjalankan binary node tanpa perlu menetapkan nilai-nilai tersebut.
+
+Kita dapat mencetak opsi perintah tambahan yang terkait dengan mesin JavaScript V8 dengan menggunakan perintah berikut ini.
+
+node --v8-options
+Hasilnya akan terlihat seperti gambar di bawah ini.
+
+dos:73dba232fed0652dc2c665a8813e4bf520231005100050.jpeg
+
+
+
+Memeriksa Sintaks JavaScript
+Node.js dapat membaca (parsing) kode JavaScript tanpa menjalankannya dengan tujuan memeriksa kebenaran sintaks yang ditulis. Dalam konteks yang sebenarnya, pemeriksaan sintaks biasanya berguna untuk memastikan kevalidan kode yang akan dieksekusi, terutama jika kode tersebut membutuhkan biaya, misalnya transaksi besar dengan database. Dalam kasus yang lebih kompleks, pemeriksaan sintaks juga berguna untuk memvalidasi kode yang dihasilkan oleh generator atau dalam situasi apa pun yang memerlukan pemeriksaan sintaks yang benar.
+
+Untuk memeriksa sintaks JavaScript tanpa menjalankannya, Anda bisa menggunakan opsi perintah --check atau -c.
+
+dos:7de04b7df205566325a6297c500ef04b20231005100053.jpeg
+
+Untuk hasil yang valid, Node.js tidak akan menghasilkan keluaran apa pun. Namun, untuk yang tidak valid, ia akan menghasilkan SyntaxError.
+
+
+
+Mengevaluasi Sintaks JavaScript melalui Perintah Shell
+Dalam menjalankan proses Node.js, kita tidak selalu harus menggunakan berkas JavaScript. Node.js memiliki kemampuan untuk mengevaluasi kode secara langsung melalui perintah shell. Fitur ini sangat berguna ketika Anda ingin mencoba potongan kode atau mengeksekusi kode yang dapat digunakan secara lintas platform dan memanfaatkan API inti Node.js dan JavaScript.
+
+Terdapat dua opsi perintah yang dapat digunakan untuk mengevaluasi kode, yaitu opsi --print atau -p dan opsi --eval atau -e.
+
+dos:7b44de18de7f5764c59bce80e54cb00320231005100051.jpeg
+
+Opsi perintah --eval atau -e digunakan untuk mengevaluasi potongan kode JavaScript tanpa mencetak hasil evaluasi (kecuali secara eksplisit menggunakan console.log), sedangkan opsi perintah --print atau -p digunakan untuk mengevaluasi kode dan mencetak hasil evaluasinya.
+
+
+
+Preloading CommonJS Module
+Ketika menjalankan proses Node.js dengan berkas JavaScript, terkadang kita perlu melakukan proses preload sebelum menjalankan proses utama. Proses preload dapat digunakan untuk berbagai tujuan, seperti mengonfigurasi sebelum menjalankan proses utama.
+
+Untuk melakukan proses preload, kita dapat menggunakan opsi perintah --require. Berikut adalah contoh penggunaannya:
+
+node --require ./preload.js main.js
+
+Perintah di atas akan menjalankan berkas main.js, tetapi sebelum Node.js menjalankannya, ia akan terlebih dahulu menjalankan berkas preload.js sebagai proses preload.
+
+Anggaplah kedua berkas tersebut berisi kode sebagai berikut:
+
+preload.js
+main.js
+console.log('preload.js: ini adalah proses preload');
+Jika kita menjalankan perintah di atas, hasilnya akan tampak seperti gambar di bawah ini.
+
+dos:5128cfa8084b8d92cfeb3ca95995317020231005100050.jpeg
+
+Kita juga dapat memuat lebih dari satu berkas JavaScript pada proses preload dengan menggunakan opsi perintah --require secara berulang. Contohnya dapat dilihat pada gambar di bawah ini.
+
+dos:708d2ce4f97b92befe1c767d2ae5137020231005100050.jpeg
+
+Opsi perintah --require memiliki alias yaitu -r sehingga kita dapat menuliskan perintah dengan lebih singkat.
+
+dos:ff5dfc057adac27377542373e481481a20231005100050.jpeg
+
+Catatan
+
+Opsi perintah --require atau -r hanya berlaku untuk sistem modularisasi CommonJS. Jika berkas preload menggunakan notasi ESM seperti export dan import, opsi perintah tersebut tidak dapat digunakan. Jika Anda menggunakan ESM, terdapat flag lain untuk melakukan proses preload yaitu --import. Namun, opsi perintah tersebut masih bersifat eksperimental dan tidak akan dibahas dalam kelas ini.
+
+
+
+Membatasi Stack Trace
+Stack trace merupakan informasi yang dicetak pada Terminal ketika proses Node.js membangkitkan kesalahan (Error). Melalui stack trace, kita dapat mengetahui lokasi baris kode yang membangkitkan error.
+
+dos:e1d87e5cdcd36af6b548ee869fd5d14720231005100050.jpeg
+
+Standarnya, stack trace hanya menampilkan 10 urutan pemanggilan fungsi terakhir yang terkait dengan kesalahan tersebut. Hal ini sebenarnya sudah cukup karena informasi yang relevan biasanya terdapat di antara baris 1 hingga 4 saja. Namun, jika terjadi kasus yang membutuhkan melihat stack trace lebih dari 10 baris, jangan khawatir, Anda dapat mengubah batasannya.
+
+Untuk mengubah batasan stack trace, kita bisa menggunakan opsi perintah --stack-trace-limit. Contoh penggunaannya sebagai berikut.
+
+node --stack-trace-limit=100 app.js
+
