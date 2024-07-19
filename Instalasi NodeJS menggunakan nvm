@@ -1,0 +1,11 @@
+1. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    - Setelah proses pemasangan nvm selesai, penting untuk keluar dari Terminal dan masuk kembali agar nvm dapat digunakan.
+2. nvm -v
+    - Setelah nvm siap digunakan, Anda dapat mulai memasang Node.js dengan menjalankan perintah di bawah ini.
+3. nvm install 16
+    - Perintah ini akan memasang Node.js 16 dengan versi minor dan patch terbaru. Anda dapat mengubah nomor versi pada perintah tersebut sesuai dengan versi yang diinginkan. 
+      Misalnya, jika Anda ingin memasang Node.js 18, gunakan perintah nvm install 18.
+4. node -v
+    - Untuk beralih antara versi node, gunakan perintah berikut ini.
+5. nvm use (versi node)
+    - Pastikan versi Node yang ingin Anda gunakan sudah terpasang sebelumnya melalui perintah nvm install <versi-node>.
